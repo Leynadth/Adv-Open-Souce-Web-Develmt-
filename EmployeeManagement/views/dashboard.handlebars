@@ -1,0 +1,77 @@
+{{> messages}}
+
+<div class="container">
+  <h2>Employee Dashboard</h2>
+
+  <a href="/logout" class="btn btn-danger">Logout</a>
+
+  <h3>Add New Employee</h3>
+  <form action="/employees/add" method="POST">
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="department">Department:</label>
+      <select id="department" name="department" required class="form-control">
+        <option value="Engineering">Engineering</option>
+        <option value="HR">HR</option>
+        <option value="IT">IT</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="jobTitle">Job Title:</label>
+      <input type="text" id="jobTitle" name="jobTitle" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input type="number" id="salary" name="salary" required class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+  </form>
+
+  <h3>Current Employees</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Start Date</th>
+        <th>Job Title</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each employees}}
+      <tr>
+        <td>{{this.firstName}} {{this.lastName}}</td>
+        <td>{{this.department}}</td>
+        <td>{{this.startDate}}</td>
+        <td>{{this.jobTitle}}</td>
+        <td>${{this.salary}}</td>
+        <td>
+          <a href="/employees/edit/{{this._id}}" class="btn btn-warning">Edit</a>
+          <form action="/employees/delete/{{this._id}}?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
